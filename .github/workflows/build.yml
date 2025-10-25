@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: write  # For pushing to GHCR
-    if: ${{ github.event_name != 'schedule' && steps.check.outcome != 'success' }}
+    if: ${{ github.event_name != 'schedule' && needs.check-update.outcome != 'success' }}
     needs: check-update
     steps:
       - name: Checkout code
