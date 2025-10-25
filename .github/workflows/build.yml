@@ -26,6 +26,7 @@ jobs:
       - name: Check for upstream update
         id: check
         uses: lucacome/docker-image-update-checker@v3
+        continue-on-error: true  # Allow job to continue on 404
         with:
           base-image: caddy:alpine
           image: ghcr.io/${{ github.repository_owner }}/docker-caddy:latest
@@ -34,7 +35,8 @@ jobs:
   build-push:
     needs: check-update
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'schedule' || needs.check-update.outputs.needs-updating == 'true' }}
+    # Run on push, manual dispatch, if upstream updated, or if image is missing (404)
+    if: ${{ github.event_name != 'schedule' || needs.check-update.outputs.needs-updating == 'true' || needs.check-update.outcome != 'success' }}
     permissions:
       packages: write  # For pushing to GHCR
     steps:
