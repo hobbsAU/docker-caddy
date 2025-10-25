@@ -4,7 +4,7 @@ This repository builds a custom Caddy Docker image including the forwardproxy pl
 
 ## Building Locally
 To build the image locally:
-`docker build -t ghcr.io/hobbsAU/caddy-forwardproxy:latest .`
+`docker build -t ghcr.io/hobbsau/caddy-forwardproxy:latest .`
 
 ## Docker Compose Example
 Here's a sample `docker-compose.yml` to run the container. Create this file in your working directory and run `docker compose up -d`.
@@ -12,7 +12,7 @@ Here's a sample `docker-compose.yml` to run the container. Create this file in y
 ```yaml
 services:
   caddy:
-    image: ghcr.io/hobbsAU/caddy-forwardproxy:latest
+    image: ghcr.io/hobbsau/caddy-forwardproxy:latest
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
